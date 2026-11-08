@@ -1,5 +1,6 @@
 # Senior AI Engineer Underwriting System — Project Write-Up
 
+
 ## 1. Executive Summary & Approach
 
 Commercial bridge lending ("fix-and-flip") requires rapid, objective credit risk evaluation across complex, heterogeneous loan packages. In this project, I designed and built an **AI-Driven Loan Underwriting Application** from the ground up to assist human credit underwriters by automating document classification, structured data extraction, deterministic financial metrics calculation, and machine-learning-based loan recommendation.

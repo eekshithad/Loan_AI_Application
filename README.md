@@ -34,12 +34,6 @@ streamlit run app.py
 ```
 Open **`http://localhost:8501`** in your browser to interact with the full underwriting workspace.
 
-### 4. Run Test Suite
-```powershell
-python -m pytest tests/test_pipeline.py -v
-```
-Runs 23 automated tests verifying deterministic financial math, risk flags, classification heuristics, and decision model predictions (100% passing).
-
 ---
 
 ## Project Structure
@@ -48,13 +42,11 @@ Runs 23 automated tests verifying deterministic financial math, risk flags, clas
 Application/
 ├── .venv/                          # Pre-configured Python 3.13 virtual environment
 ├── Input/
-│   ├── downloaded_documents/       # 12 institutional loan PDFs (Term sheet, Appraisal, etc.)
-│   ├── ground_truth/               # Benchmark test cases & classification labels (JSON)
-│   └── sample_loan_cases/          # 10 scenario test cases (JSON)
+│   ├── downloaded_documents/       # Core loan documents (Term sheet, Appraisal, etc.)
+│   └── sample_loan_cases/          # Scenario test cases (JSON)
 ├── Output/
 │   ├── processed_results/          # Extracted JSON results and underwriting summary
-│   ├── reports/                    # Formatted PDF and JSON reports
-│   └── evaluation/                 # Model evaluation metrics and confusion matrix
+│   └── reports/                    # Formatted PDF and JSON reports
 ├── src/
 │   ├── ingestion/
 │   │   ├── pdf_loader.py           # PyMuPDF ingestion with OCR fallback
@@ -71,13 +63,10 @@ Application/
 │   │   └── loan_decision_model.py  # Scikit-Learn Random Forest credit decision model
 │   ├── reporting/
 │   │   ├── report_generator.py     # ReportLab PDF + JSON export engine
-│   │   ├── evaluation.py           # Accuracy, precision, recall, F1 computation
-│   │   └── generate_eval_report.py # Standalone evaluation runner
+│   │   └── evaluation.py           # Accuracy, precision, recall, F1 computation
 │   └── pipeline.py                 # End-to-end pipeline orchestrator
 ├── models/
 │   └── loan_decision_rf.pkl        # Serialized Random Forest classifier
-├── tests/
-│   └── test_pipeline.py            # Automated pytest verification suite
 ├── app.py                          # Streamlit web user interface
 ├── run.py                          # Single-command CLI runner
 ├── WRITEUP.md                      # Comprehensive 3-page project write-up
