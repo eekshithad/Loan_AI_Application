@@ -85,3 +85,4 @@ for c in cases:
         json.dump(c, f, indent=2)
 
 print("Created 4 sample loan cases in Input/sample_loan_cases")
+
