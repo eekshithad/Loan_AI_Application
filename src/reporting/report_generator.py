@@ -71,6 +71,7 @@ def build_report(
             "classified": [
                 {
                     "file": c.file_name,
+                    "tag": getattr(c, "tag", "other"),
                     "category": c.category,
                     "confidence": f"{c.confidence:.0%}",
                     "method": c.method,

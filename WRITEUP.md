@@ -54,7 +54,53 @@ Loan Documents (PDF)
 
 ---
 
-## 3. Trade-Offs Made
+## 3. Answers to Technical Architecture Questions
+
+### Question 1: Which documents and which fields actually drive the decision? How did you find out?
+- **Analysis:** Feature importance analysis of our Random Forest model and empirical credit policy guidelines reveal that the decision is driven by **4 core documents**:
+  1. *Appraisal:* As-Is Market Value and After-Repair Value (ARV).
+  2. *Loan Application:* Borrower entity, Guarantor FICO score, liquid cash reserves, and completed project history.
+  3. *Purchase Contract:* Contract purchase price, earnest money, and closing timeframe.
+  4. *Term Sheet:* Requested loan amount, interest rate, and holdback terms.
+- **Finding:** Quantitative features (ARV LTV, LTC, Credit Score, Liquidity Ratio) account for over 80% of decision variance. Ancillary documents (Title, Insurance, Flood) function as binary eligibility gates (conditions precedent) rather than continuous risk weights.
+
+### Question 2: Which facts should be computed from extracted values rather than taken directly from a document?
+- **Analysis:** Key leverage and risk metrics must **always be computed deterministically in code**:
+  - `As-Is LTV = (Loan Amount / As-Is Value) * 100`
+  - `ARV LTV = (Loan Amount / ARV) * 100`
+  - `LTC = (Loan Amount / [Purchase Price + Rehab Budget]) * 100`
+  - `Borrower Equity = Total Project Cost - Loan Amount`
+- **Finding:** Documents often present conflicting or outdated ratios (e.g., broker pitch decks quoting optimistic ARVs). Recalculating ratios directly from independent primary sources guarantees mathematical integrity and prevents unstated cost overruns.
+
+### Question 3: Where is an LLM the right tool, and where is a classical ML model, an OCR engine, or a simple parser better?
+- **OCR Engine (PyMuPDF / Tesseract):** Superior for low-level raster image parsing and coordinate-aware text extraction from scanned forms.
+- **Pattern / Regex Parser:** Ideal for standardized forms (e.g., Form 1003, ACORD insurance binders) where layout is fixed; executes in < 10ms with zero hallucination risk.
+- **Local LLM (`llama3.1` via Ollama):** Best for unstructured semantic reasoning: mapping heterogeneous document types, parsing varied contractor bids, and synthesizing multi-factor underwriter justifications.
+- **Classical ML (Random Forest):** Superior for credit risk scoring. Provides reproducible, calibrated class probabilities and auditable feature weights required for regulatory compliance and credit committee governance.
+
+### Question 4: How do you stop the system inventing values that are not in the documents?
+- **Defense-in-Depth Guardrails:**
+  1. *Explicit "Not Found" Default:* Missing entities are assigned `Not Found` / `null` rather than imputed.
+  2. *Source Attribution:* Every extracted entity captures its originating `source_document` and 1-based `source_page`.
+  3. *Zero-Temperature JSON Constrained Prompting:* LLM system prompts strictly enforce: *"Return ONLY valid JSON. If a value is missing, return null. Never extrapolate or guess."*
+
+### Question 5: When should the system refuse to decide and hand the file to a human?
+- **Human Escalation Triggers:**
+  - Prediction confidence falls below 60%.
+  - Any core required document is missing.
+  - High-severity cross-document discrepancies (e.g., Contract Price != Application Price by > 5%).
+  - Borderline credit scores (620–660) coupled with high leverage (LTC > 85%).
+  - Environmental red flags (e.g., property located in Special Flood Hazard Area Zone A/V without flood insurance binder).
+
+### Question 6: How would you explain a decline to an underwriter so they can trust or challenge it?
+- **Auditable Adverse Action Presentation:**
+  - Clearly state the primary policy breaches (e.g., *"LTC of 94.2% exceeds maximum ceiling of 90.0%"* or *"Liquid reserves of $12,000 represent only 3.8% of requested facility, violating the 10% liquidity policy"*).
+  - Provide direct hyperlinks/citations to the exact document and page number where the offending data originated.
+  - Display top model factor weights so underwriters can identify mitigating adjustments (e.g., injecting additional cash equity or adding an experienced co-guarantor).
+
+---
+
+## 4. Trade-Offs Made
 
 1. **Local LLM (`llama3.1` via Ollama) vs. Hosted APIs (Claude/OpenAI):**
    - *Trade-Off:* Local execution is slower on consumer hardware (~12–18s per document on CPU) compared to hosted cloud APIs.
@@ -68,7 +114,7 @@ Loan Documents (PDF)
 
 ---
 
-## 4. What I Would Do With Another Two Weeks
+## 5. What I Would Do With Another Two Weeks
 
 1. **Automated Cross-Document Discrepancy Matrix:** Expand the conflict detector into an interactive matrix highlighting exact line-item discrepancies between contractor bids and appraiser cost estimates.
 2. **Multi-Column OCR / Table Extraction with LayoutLM:** Integrate a specialized document layout model for dense, multi-column bank ledgers and title schedules.
@@ -77,7 +123,7 @@ Loan Documents (PDF)
 
 ---
 
-## 5. AI Usage Notes
+## 6. AI Usage Notes
 
 In building this application, I utilized **Google Antigravity** as my primary agentic AI coding assistant.
 - **How I Used Antigravity:**
@@ -90,7 +136,7 @@ In building this application, I utilized **Google Antigravity** as my primary ag
 
 ---
 
-## 6. Model Evaluation & Benchmark Results
+## 7. Model Evaluation & Benchmark Results
 
 The decision engine was evaluated against 10 diverse institutional benchmark scenarios (`GT-001` through `GT-010`) covering complete documentation, high leverage, low liquidity, subprime credit, and scanned/unclear files:
 
@@ -107,7 +153,7 @@ The decision engine was evaluated against 10 diverse institutional benchmark sce
 
 ---
 
-## 7. Data Note & Dataset Provenance
+## 8. Data Note & Dataset Provenance
 
 - **Loan Document Package:** 12 complete, multi-page PDF loan documents were prepared based on standard commercial lending templates:
   1. `term_sheet_sample.pdf` (Commercial Bridge Loan Term Sheet)

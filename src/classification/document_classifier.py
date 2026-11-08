@@ -97,6 +97,26 @@ CATEGORY_KEYWORDS: dict[str, list[str]] = {
 }
 
 
+TAG_MAP: dict[str, str] = {
+    "Term Sheet": "term_sheet",
+    "Loan Application": "loan_application",
+    "Purchase Contract": "purchase_contract",
+    "Appraisal": "appraisal",
+    "Scope of Work": "scope_of_work",
+    "Title Commitment": "title_commitment",
+    "Insurance Binder": "insurance_binder",
+    "Flood Certificate": "flood_certificate",
+    "Credit Report": "credit_report",
+    "Bank Statement": "bank_statement",
+    "Operating Agreement": "operating_agreement",
+    "Certificate of Good Standing": "good_standing",
+    "Government ID": "government_id",
+    "Borrower Track Record": "track_record",
+    "Background Check": "background_check",
+    "Other": "other",
+}
+
+
 @dataclass
 class ClassificationResult:
     file_name: str
@@ -107,6 +127,10 @@ class ClassificationResult:
     page_evidence: dict[int, str] = field(default_factory=dict)  # page → snippet
     llm_reasoning: str = ""
     error: Optional[str] = None
+
+    @property
+    def tag(self) -> str:
+        return TAG_MAP.get(self.category, "other")
 
 
 def _keyword_score(text: str) -> dict[str, float]:
