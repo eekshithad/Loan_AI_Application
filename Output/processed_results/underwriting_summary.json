@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generated_at": "2026-11-08 15:45:13",
+    "generated_at": "2026-11-08 16:06:20",
     "application_name": "AI-Driven Loan Underwriting System",
     "version": "1.0.0",
     "disclaimer": "Confidential Commercial Underwriting Report \u2014 FinacPlus Credit Division"
   },
   "loan_summary": {
-    "property_address": "Purchase",
+    "property_address": "1247 Oakwood Drive, Atlanta, GA 30308",
     "borrower_name": "Meridian Capital Investments LLC",
     "loan_amount": "285000.0",
     "purchase_price": "220000.0",
@@ -17,52 +17,14 @@
   "document_classification": {
     "uploaded_files": [
       "appraisal_sample.pdf",
-      "bank_statement_sample.pdf",
-      "borrower_track_record_sample.pdf",
-      "credit_report_sample.pdf",
-      "flood_certificate_sample.pdf",
-      "insurance_binder_sample.pdf",
       "loan_application_sample.pdf",
-      "operating_agreement_sample.pdf",
       "purchase_contract_sample.pdf",
-      "scope_of_work_sample.pdf",
-      "term_sheet_sample.pdf",
-      "title_commitment_sample.pdf"
+      "term_sheet_sample.pdf"
     ],
     "classified": [
       {
         "file": "appraisal_sample.pdf",
         "category": "Appraisal",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "bank_statement_sample.pdf",
-        "category": "Bank Statement",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "borrower_track_record_sample.pdf",
-        "category": "Borrower Track Record",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "credit_report_sample.pdf",
-        "category": "Credit Report",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "flood_certificate_sample.pdf",
-        "category": "Flood Certificate",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "insurance_binder_sample.pdf",
-        "category": "Insurance Binder",
         "confidence": "75%",
         "method": "keyword"
       },
@@ -73,20 +35,8 @@
         "method": "keyword"
       },
       {
-        "file": "operating_agreement_sample.pdf",
-        "category": "Operating Agreement",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
         "file": "purchase_contract_sample.pdf",
         "category": "Purchase Contract",
-        "confidence": "75%",
-        "method": "keyword"
-      },
-      {
-        "file": "scope_of_work_sample.pdf",
-        "category": "Scope of Work",
         "confidence": "75%",
         "method": "keyword"
       },
@@ -95,21 +45,23 @@
         "category": "Term Sheet",
         "confidence": "75%",
         "method": "keyword"
-      },
-      {
-        "file": "title_commitment_sample.pdf",
-        "category": "Title Commitment",
-        "confidence": "75%",
-        "method": "keyword"
       }
     ],
     "missing_required": [],
     "missing_recommended": [
+      "Scope of Work",
+      "Title Commitment",
+      "Insurance Binder",
+      "Credit Report",
+      "Bank Statement",
+      "Flood Certificate",
+      "Operating Agreement",
       "Certificate of Good Standing",
       "Government ID",
+      "Borrower Track Record",
       "Background Check"
     ],
-    "completeness_pct": 80.0
+    "completeness_pct": 26.7
   },
   "extracted_information": {
     "borrower": {
@@ -164,8 +116,8 @@
         "source": "loan_application_sample.pdf (p.1)"
       },
       "property_address": {
-        "value": "Purchase",
-        "source": "borrower_track_record_sample.pdf (p.1)"
+        "value": "1247 Oakwood Drive, Atlanta, GA 30308",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "interest_rate": {
         "value": "Not Found",
@@ -219,6 +171,48 @@
     {
       "severity": "warning",
       "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Scope of Work",
+      "action": "Consider obtaining Scope of Work for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Title Commitment",
+      "action": "Consider obtaining Title Commitment for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Insurance Binder",
+      "action": "Consider obtaining Insurance Binder for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Credit Report",
+      "action": "Consider obtaining Credit Report for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Bank Statement",
+      "action": "Consider obtaining Bank Statement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Flood Certificate",
+      "action": "Consider obtaining Flood Certificate for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Operating Agreement",
+      "action": "Consider obtaining Operating Agreement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
       "description": "Recommended document not found: Certificate of Good Standing",
       "action": "Consider obtaining Certificate of Good Standing for a more complete underwriting"
     },
@@ -227,6 +221,12 @@
       "code": "MISSING_RECOMMENDED_DOC",
       "description": "Recommended document not found: Government ID",
       "action": "Consider obtaining Government ID for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Borrower Track Record",
+      "action": "Consider obtaining Borrower Track Record for a more complete underwriting"
     },
     {
       "severity": "warning",
@@ -243,11 +243,11 @@
   ],
   "loan_recommendation": {
     "decision": "CONDITIONAL_APPROVAL",
-    "confidence": "76.1%",
+    "confidence": "73.9%",
     "probabilities": {
-      "APPROVE": 0.092,
-      "CONDITIONAL_APPROVAL": 0.761,
-      "DECLINE": 0.147
+      "APPROVE": 0.01,
+      "CONDITIONAL_APPROVAL": 0.739,
+      "DECLINE": 0.251
     },
     "top_factors": [
       {
@@ -271,7 +271,7 @@
         "importance": 0.124
       }
     ],
-    "explanation": "Credit Recommendation: CONDITIONAL_APPROVAL (Model Confidence: 76.1%). Underwriting evaluation for borrower 'Meridian Capital Investments LLC' indicates qualifying bridge loan collateral metrics with As-Is LTV of 121.3%, ARV LTV of 76.0%, and LTC of 90.5%, backed by $30,000 in verified borrower equity. Key decision factors influencing this recommendation include: credit score, missing required docs, doc completeness pct. All core underwriting documentation verified.",
+    "explanation": "Credit Recommendation: CONDITIONAL_APPROVAL (Model Confidence: 73.9%). Underwriting evaluation for borrower 'Meridian Capital Investments LLC' indicates qualifying bridge loan collateral metrics with As-Is LTV of 121.3%, ARV LTV of 76.0%, and LTC of 90.5%, backed by $30,000 in verified borrower equity. Key decision factors influencing this recommendation include: credit score, missing required docs, doc completeness pct. All core underwriting documentation verified.",
     "model_disclosure": "Quantitative risk score derived from multi-variable Random Forest classifier."
   },
   "human_review_requirements": [

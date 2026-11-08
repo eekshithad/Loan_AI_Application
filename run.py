@@ -52,6 +52,12 @@ def main():
         default="llama3.1",
         help="Ollama LLM model name (default: llama3.1)"
     )
+    parser.add_argument(
+        "--fast",
+        action="store_true",
+        default=False,
+        help="Run in CPU-optimized fast mode (heuristic extraction + ML) in ~1-2s without waiting for LLM on CPU"
+    )
 
     args = parser.parse_args()
 
@@ -90,12 +96,21 @@ def main():
     pipeline = UnderwritingPipeline(ollama_model=args.model)
     ollama_ok, msg = pipeline.check_ollama()
     print(f"[*] Ollama Status: {msg}")
+    if args.fast:
+        print("[*] Mode: Fast Mode (CPU-Optimized Heuristics & ML Decision)")
+    else:
+        print("[*] Mode: Full Deep Mode (Local Ollama llama3.1 LLM)")
+
+    def progress_cb(step, pct):
+        print(f"  [{pct:3d}%] {step}")
 
     # Process files
     results = pipeline.process_files(
         pdf_files,
         save_json=True,
         save_pdf=True,
+        progress_callback=progress_cb,
+        fast_mode=args.fast,
     )
 
     # Save to requested output directory

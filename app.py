@@ -164,7 +164,7 @@ def tab_upload():
                         data=fp.read(),
                         file_name=fname,
                         mime="application/pdf",
-                        use_container_width=True,
+                        width="stretch",
                     )
             else:
                 st.caption(f"{fname} missing")
@@ -186,7 +186,7 @@ def tab_upload():
         st.caption("Standard commercial bridge loan package (4 core files).")
         b1, b2 = st.columns(2)
         with b1:
-            if st.button("🚀 Process Loan Package", type="primary", use_container_width=True):
+            if st.button("🚀 Process Loan Package", type="primary", width="stretch"):
                 docs = sorted([str(p) for p in (ROOT / "Input" / "downloaded_documents").glob("*.pdf")])
                 if not docs:
                     docs = sorted([str(p) for p in (ROOT / "Input").glob("*.pdf") if p.is_file()])
@@ -195,7 +195,7 @@ def tab_upload():
                 else:
                     st.warning("No PDF documents found in Input/ directory.")
         with b2:
-            if st.button("⚡ Quick Load Pre-Analyzed", use_container_width=True):
+            if st.button("⚡ Quick Load Pre-Analyzed", width="stretch"):
                 if load_default_results():
                     st.success("Loaded pre-analyzed loan package results instantly!")
                 else:
@@ -204,7 +204,7 @@ def tab_upload():
     with col2:
         st.subheader("Upload Custom PDFs")
         uploaded = st.file_uploader("Upload PDF files", type=["pdf"], accept_multiple_files=True)
-        if uploaded and st.button("🔍 Analyze Uploaded Files", type="primary", use_container_width=True):
+        if uploaded and st.button("🔍 Analyze Uploaded Files", type="primary", width="stretch"):
             with tempfile.TemporaryDirectory() as tmpdir:
                 paths = []
                 for uf in uploaded:
@@ -253,7 +253,7 @@ def tab_results():
         if cls_list:
             df_c = pd.DataFrame(cls_list)[["file", "category", "confidence"]]
             df_c.columns = ["Document Name", "Identified Category", "Confidence"]
-            st.dataframe(df_c, use_container_width=True, hide_index=True)
+            st.dataframe(df_c, width="stretch", hide_index=True)
 
         if dc.get("missing_required"):
             st.error(f"Missing Required Documents: {', '.join(dc['missing_required'])}")
@@ -271,7 +271,7 @@ def tab_results():
             {"Parameter": "As-Is Property Value", "Value": loan_info.get("as_is_value", {}).get("value", "N/A"), "Source": loan_info.get("as_is_value", {}).get("source", "N/A")},
             {"Parameter": "After Repair Value (ARV)", "Value": loan_info.get("arv", {}).get("value", "N/A"), "Source": loan_info.get("arv", {}).get("source", "N/A")},
         ]
-        st.dataframe(pd.DataFrame(facts), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(facts), width="stretch", hide_index=True)
 
 
 # ── TAB 4: RECOMMENDATION ─────────────────────────────────────────────────────
@@ -298,7 +298,7 @@ def tab_recommendation():
         probs = rec.get("probabilities", {})
         if probs:
             p_data = [{"Outcome": k.replace("_", " "), "Probability": f"{v:.1%}"} for k, v in probs.items()]
-            st.dataframe(pd.DataFrame(p_data), use_container_width=True, hide_index=True)
+            st.dataframe(pd.DataFrame(p_data), width="stretch", hide_index=True)
 
     with col2:
         st.subheader("Top Decision Factors")
@@ -356,7 +356,7 @@ def tab_sources():
         }
         for s in DOCUMENT_SOURCES
     ]
-    st.dataframe(pd.DataFrame(src_data), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(src_data), width="stretch", hide_index=True)
 
 
 # ── TAB 6: EVALUATION ─────────────────────────────────────────────────────────
@@ -387,7 +387,7 @@ def tab_evaluation():
             "Confidence": f"{cr['confidence']:.1%}",
             "Result": "✅ Match" if cr["correct"] else "❌ Mismatch",
         })
-    st.dataframe(pd.DataFrame(table_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(table_rows), width="stretch", hide_index=True)
 
     st.divider()
     st.subheader("Sample Loan Scenarios (`Input/sample_loan_cases/`)")
@@ -406,7 +406,7 @@ def tab_evaluation():
             })
 
     if case_rows:
-        st.dataframe(pd.DataFrame(case_rows), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(case_rows), width="stretch", hide_index=True)
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
