@@ -137,11 +137,11 @@ def classify_document_keyword(text: str, file_name: str = "") -> ClassificationR
     scores = _keyword_score(text)
     text_lower = text.lower()
 
-    # Also check filename
-    fname_lower = file_name.lower()
+    # Also check filename with normalized spacing
+    fname_lower = file_name.lower().replace("_", " ").replace("-", " ")
     for cat, kws in CATEGORY_KEYWORDS.items():
-        if any(kw in fname_lower for kw in kws):
-            scores[cat] = scores.get(cat, 0) + 0.3
+        if cat.lower() in fname_lower or any(kw in fname_lower for kw in kws):
+            scores[cat] = scores.get(cat, 0) + 0.6
 
     best_cat = max(scores, key=scores.get)
     best_score = scores[best_cat]
