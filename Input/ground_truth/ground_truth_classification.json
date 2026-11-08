@@ -1,0 +1,37 @@
+[
+  {
+    "file_name": "term_sheet_sample.pdf",
+    "true_category": "Term Sheet",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "loan_application_sample.pdf",
+    "true_category": "Loan Application",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "purchase_contract_sample.pdf",
+    "true_category": "Purchase Contract",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "appraisal_sample.pdf",
+    "true_category": "Appraisal",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "scope_of_work_sample.pdf",
+    "true_category": "Scope of Work",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "credit_report_sample.pdf",
+    "true_category": "Credit Report",
+    "label_source": "Synthetic/Manual"
+  },
+  {
+    "file_name": "bank_statement_sample.pdf",
+    "true_category": "Bank Statement",
+    "label_source": "Synthetic/Manual"
+  }
+]
