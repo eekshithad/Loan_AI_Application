@@ -1,0 +1,22 @@
+{
+  "case_id": "CASE-03",
+  "title": "Excessive Leverage \u2014 Declined",
+  "borrower_entity": "Apex Renovations Group",
+  "guarantor": "Marcus K. Bell",
+  "credit_score": 620,
+  "requested_loan": 420000,
+  "purchase_price": 300000,
+  "as_is_value": 310000,
+  "arv": 440000,
+  "rehab_budget": 120000,
+  "bank_balance": 15000,
+  "experience_flips": 1,
+  "documents_submitted": [
+    "term_sheet",
+    "loan_application",
+    "purchase_contract",
+    "appraisal"
+  ],
+  "expected_decision": "DECLINE",
+  "rationale": "Excessive As-Is LTV (135%) and ARV LTV (95%) exceeding credit policy limits with insufficient reserves."
+}

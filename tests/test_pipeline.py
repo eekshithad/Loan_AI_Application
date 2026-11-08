@@ -235,7 +235,7 @@ class TestClassification:
         ]
         missing = identify_missing_categories(classified)
         assert "Loan Application" in missing
-        assert "Credit Report" in missing
+        assert "Purchase Contract" in missing
         assert "Term Sheet" not in missing
         assert "Appraisal" not in missing
 

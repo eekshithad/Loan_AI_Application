@@ -1,0 +1,22 @@
+{
+  "case_id": "CASE-02",
+  "title": "Elevated Rehab Scope \u2014 Conditional Approval",
+  "borrower_entity": "Oakwood Holdings LLC",
+  "guarantor": "Robert M. Vance",
+  "credit_score": 685,
+  "requested_loan": 320000,
+  "purchase_price": 250000,
+  "as_is_value": 260000,
+  "arv": 450000,
+  "rehab_budget": 140000,
+  "bank_balance": 45000,
+  "experience_flips": 3,
+  "documents_submitted": [
+    "term_sheet",
+    "loan_application",
+    "purchase_contract",
+    "appraisal"
+  ],
+  "expected_decision": "CONDITIONAL_APPROVAL",
+  "rationale": "Satisfactory borrower profile; conditional on general contractor milestone escrow verification."
+}

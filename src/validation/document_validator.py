@@ -13,14 +13,14 @@ REQUIRED_DOCUMENTS = [
     "Loan Application",
     "Purchase Contract",
     "Appraisal",
+]
+
+RECOMMENDED_DOCUMENTS = [
     "Scope of Work",
     "Title Commitment",
     "Insurance Binder",
     "Credit Report",
     "Bank Statement",
-]
-
-RECOMMENDED_DOCUMENTS = [
     "Flood Certificate",
     "Operating Agreement",
     "Certificate of Good Standing",

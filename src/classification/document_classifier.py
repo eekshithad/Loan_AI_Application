@@ -276,11 +276,6 @@ def identify_missing_categories(
             "Loan Application",
             "Purchase Contract",
             "Appraisal",
-            "Scope of Work",
-            "Title Commitment",
-            "Insurance Binder",
-            "Credit Report",
-            "Bank Statement",
         ]
     found = {r.category for r in classified_docs}
     return [cat for cat in required_categories if cat not in found]

@@ -1,0 +1,22 @@
+{
+  "case_id": "CASE-01",
+  "title": "Prime Borrower \u2014 Clean Approval",
+  "borrower_entity": "Meridian Capital Investments LLC",
+  "guarantor": "James A. Whitfield",
+  "credit_score": 745,
+  "requested_loan": 285000,
+  "purchase_price": 220000,
+  "as_is_value": 235000,
+  "arv": 375000,
+  "rehab_budget": 95000,
+  "bank_balance": 72500,
+  "experience_flips": 8,
+  "documents_submitted": [
+    "term_sheet",
+    "loan_application",
+    "purchase_contract",
+    "appraisal"
+  ],
+  "expected_decision": "APPROVE",
+  "rationale": "Strong credit score, adequate equity, documented prior investor experience, clean title and contract."
+}

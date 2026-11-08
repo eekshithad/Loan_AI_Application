@@ -1,0 +1,22 @@
+{
+  "case_id": "CASE-04",
+  "title": "Subprime Credit Profile \u2014 Declined",
+  "borrower_entity": "Silverline Properties LLC",
+  "guarantor": "David S. Miller",
+  "credit_score": 560,
+  "requested_loan": 190000,
+  "purchase_price": 160000,
+  "as_is_value": 175000,
+  "arv": 260000,
+  "rehab_budget": 60000,
+  "bank_balance": 22000,
+  "experience_flips": 0,
+  "documents_submitted": [
+    "term_sheet",
+    "loan_application",
+    "purchase_contract",
+    "appraisal"
+  ],
+  "expected_decision": "DECLINE",
+  "rationale": "Credit score (560) is below minimum threshold (580) and guarantor lacks prior investment experience."
+}
