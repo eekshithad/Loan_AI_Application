@@ -55,6 +55,26 @@ def get_decision_model():
     return m
 
 
+def load_default_results() -> bool:
+    """Pre-load existing analysis results so the app is immediately ready without waiting."""
+    summary_path = ROOT / "Output" / "processed_results" / "underwriting_summary.json"
+    if summary_path.exists():
+        try:
+            with open(summary_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            pdf_files = sorted(list((ROOT / "Output" / "reports").glob("*.pdf")), key=lambda p: p.stat().st_mtime, reverse=True)
+            pdf_path = str(pdf_files[0]) if pdf_files else None
+            st.session_state["pipeline_results"] = {
+                "report": data,
+                "report_json_path": str(summary_path),
+                "report_pdf_path": pdf_path,
+            }
+            return True
+        except Exception as e:
+            logger.warning(f"Could not load pre-analyzed summary: {e}")
+    return False
+
+
 def decision_badge(decision: str):
     if decision == "APPROVE":
         return '<div class="badge-approve">✅ RECOMMENDATION: APPROVE</div>'
@@ -63,7 +83,7 @@ def decision_badge(decision: str):
     return '<div class="badge-decline">❌ RECOMMENDATION: DECLINE</div>'
 
 
-def _run_pipeline(file_paths: list[str]):
+def _run_pipeline(file_paths: list[str], fast_mode: bool = False):
     pipeline = get_pipeline()
     bar = st.progress(0, text="Initializing underwriting analysis...")
 
@@ -76,6 +96,7 @@ def _run_pipeline(file_paths: list[str]):
             save_json=True,
             save_pdf=True,
             progress_callback=update_p,
+            fast_mode=fast_mode,
         )
         st.session_state["pipeline_results"] = results
         bar.progress(1.0, text="Completed!")
@@ -118,26 +139,72 @@ def tab_home():
 def tab_upload():
     st.title("📤 Loan Documents")
 
-    st.write("Process the default loan package in `Input/` or upload custom PDF files.")
+    st.markdown("### 📥 Download Sample Documents")
+    st.write("Click any button below to download the sample loan documents, then upload them into the uploader below to test:")
+
+    sample_dir = ROOT / "Input" / "downloaded_documents"
+    if not sample_dir.exists():
+        sample_dir = ROOT / "Input"
+
+    col_d1, col_d2, col_d3, col_d4 = st.columns(4)
+    file_specs = [
+        ("term_sheet_sample.pdf", "📄 Term Sheet", col_d1),
+        ("loan_application_sample.pdf", "📄 Loan Application", col_d2),
+        ("purchase_contract_sample.pdf", "📄 Purchase Contract", col_d3),
+        ("appraisal_sample.pdf", "📄 Appraisal Report", col_d4),
+    ]
+
+    for fname, label, col in file_specs:
+        fpath = sample_dir / fname
+        with col:
+            if fpath.exists():
+                with open(fpath, "rb") as fp:
+                    st.download_button(
+                        label=label,
+                        data=fp.read(),
+                        file_name=fname,
+                        mime="application/pdf",
+                        use_container_width=True,
+                    )
+            else:
+                st.caption(f"{fname} missing")
+
+    st.caption("💡 Local directory containing all sample PDFs: `D:\\WORK\\resumes\\FinacPlus\\Application\\Input\\downloaded_documents\\`")
+    st.divider()
+
+    # CPU Optimization Toggle
+    fast_mode = st.checkbox(
+        "⚡ Fast Mode (CPU-Optimized Heuristics — Recommended for CPU)",
+        value=True,
+        help="Runs deterministic heuristic classification & extraction in ~1-2 seconds on CPU, avoiding long LLM generation times."
+    )
 
     col1, col2 = st.columns([1, 1])
 
     with col1:
         st.subheader("Default Loan Package")
         st.caption("Standard commercial bridge loan package (4 core files).")
-        if st.button("🚀 Process Loan Package", type="primary"):
-            docs = sorted([str(p) for p in (ROOT / "Input" / "downloaded_documents").glob("*.pdf")])
-            if not docs:
-                docs = sorted([str(p) for p in (ROOT / "Input").glob("*.pdf") if p.is_file()])
-            if docs:
-                _run_pipeline(docs)
-            else:
-                st.warning("No PDF documents found in Input/ directory.")
+        b1, b2 = st.columns(2)
+        with b1:
+            if st.button("🚀 Process Loan Package", type="primary", use_container_width=True):
+                docs = sorted([str(p) for p in (ROOT / "Input" / "downloaded_documents").glob("*.pdf")])
+                if not docs:
+                    docs = sorted([str(p) for p in (ROOT / "Input").glob("*.pdf") if p.is_file()])
+                if docs:
+                    _run_pipeline(docs, fast_mode=fast_mode)
+                else:
+                    st.warning("No PDF documents found in Input/ directory.")
+        with b2:
+            if st.button("⚡ Quick Load Pre-Analyzed", use_container_width=True):
+                if load_default_results():
+                    st.success("Loaded pre-analyzed loan package results instantly!")
+                else:
+                    st.warning("No pre-computed results found.")
 
     with col2:
         st.subheader("Upload Custom PDFs")
         uploaded = st.file_uploader("Upload PDF files", type=["pdf"], accept_multiple_files=True)
-        if uploaded and st.button("🔍 Analyze Uploaded Files"):
+        if uploaded and st.button("🔍 Analyze Uploaded Files", type="primary", use_container_width=True):
             with tempfile.TemporaryDirectory() as tmpdir:
                 paths = []
                 for uf in uploaded:
@@ -145,7 +212,7 @@ def tab_upload():
                     with open(p, "wb") as f:
                         f.write(uf.read())
                     paths.append(str(p))
-                _run_pipeline(paths)
+                _run_pipeline(paths, fast_mode=fast_mode)
 
 
 # ── TAB 3: RESULTS ────────────────────────────────────────────────────────────
@@ -295,7 +362,7 @@ def tab_sources():
 # ── TAB 6: EVALUATION ─────────────────────────────────────────────────────────
 def tab_evaluation():
     st.title("📈 Model Evaluation")
-    st.write("Benchmark performance of the decision model across structured underwriting test cases.")
+    st.write("Benchmark performance of the decision model across 10 structured underwriting test cases.")
     st.write("")
 
     from src.reporting.evaluation import evaluate_loan_decision_model
@@ -309,7 +376,21 @@ def tab_evaluation():
     c4.metric("F1 Score", f"{eval_res.f1:.1%}")
 
     st.divider()
-    st.subheader("Test Scenarios (`Input/sample_loan_cases/`)")
+    st.subheader("Benchmark Scenario Results (`GROUND_TRUTH_LOAN_CASES`)")
+    table_rows = []
+    for cr in eval_res.case_results:
+        table_rows.append({
+            "Case ID": cr["case_id"],
+            "Scenario": cr["scenario"],
+            "Expected Decision": cr["true_label"],
+            "Model Prediction": cr["predicted_label"],
+            "Confidence": f"{cr['confidence']:.1%}",
+            "Result": "✅ Match" if cr["correct"] else "❌ Mismatch",
+        })
+    st.dataframe(pd.DataFrame(table_rows), use_container_width=True, hide_index=True)
+
+    st.divider()
+    st.subheader("Sample Loan Scenarios (`Input/sample_loan_cases/`)")
 
     cases_dir = ROOT / "Input" / "sample_loan_cases"
     case_rows = []
@@ -330,6 +411,10 @@ def tab_evaluation():
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 def main():
+    # Pre-populate session state so Analysis & Recommendation tabs are ready immediately
+    if "pipeline_results" not in st.session_state:
+        load_default_results()
+
     tabs = st.tabs([
         "🏠 Home",
         "📤 Upload Documents",

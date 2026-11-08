@@ -1,18 +1,18 @@
 {
   "metadata": {
-    "generated_at": "2026-11-08 14:12:58",
+    "generated_at": "2026-11-08 14:48:56",
     "application_name": "AI-Driven Loan Underwriting System",
     "version": "1.0.0",
     "disclaimer": "Confidential Commercial Underwriting Report \u2014 FinacPlus Credit Division"
   },
   "loan_summary": {
-    "property_address": "Not Found",
-    "borrower_name": "Not Found",
-    "loan_amount": "Not Found",
-    "purchase_price": "Not Found",
-    "as_is_value": "Not Found",
-    "arv": "Not Found",
-    "rehab_budget": "Not Found"
+    "property_address": "1247 Oakwood Drive, Atlanta, GA 30308",
+    "borrower_name": "Meridian Capital Investments LLC",
+    "loan_amount": "285000.0",
+    "purchase_price": "220000.0",
+    "as_is_value": "235000.0",
+    "arv": "375000.0",
+    "rehab_budget": "95000.0"
   },
   "document_classification": {
     "uploaded_files": [
@@ -24,35 +24,30 @@
     "classified": [
       {
         "file": "appraisal_sample.pdf",
-        "category": "Other",
-        "confidence": "90%",
-        "method": "llm"
+        "category": "Appraisal",
+        "confidence": "75%",
+        "method": "keyword"
       },
       {
         "file": "loan_application_sample.pdf",
-        "category": "Other",
-        "confidence": "90%",
-        "method": "llm"
+        "category": "Loan Application",
+        "confidence": "92%",
+        "method": "keyword+llm"
       },
       {
         "file": "purchase_contract_sample.pdf",
-        "category": "Other",
-        "confidence": "90%",
-        "method": "llm"
+        "category": "Purchase Contract",
+        "confidence": "75%",
+        "method": "keyword"
       },
       {
         "file": "term_sheet_sample.pdf",
-        "category": "Other",
-        "confidence": "90%",
-        "method": "llm"
+        "category": "Term Sheet",
+        "confidence": "75%",
+        "method": "keyword"
       }
     ],
-    "missing_required": [
-      "Term Sheet",
-      "Loan Application",
-      "Purchase Contract",
-      "Appraisal"
-    ],
+    "missing_required": [],
     "missing_recommended": [
       "Scope of Work",
       "Title Commitment",
@@ -66,75 +61,75 @@
       "Borrower Track Record",
       "Background Check"
     ],
-    "completeness_pct": 0.0
+    "completeness_pct": 26.7
   },
   "extracted_information": {
     "borrower": {
       "name": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "Meridian Capital Investments LLC",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "entity_type": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "Domestic Limited Liability Company (LLC)",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "credit_score": {
         "value": "Not Found",
         "source": "N/A"
       },
       "employment": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "5 years",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "bank_balance": {
         "value": "Not Found",
         "source": "N/A"
       },
       "experience_years": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "5",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "projects_completed": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "8",
+        "source": "loan_application_sample.pdf (p.1)"
       }
     },
     "loan": {
       "loan_amount": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "285000.0",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "purchase_price": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "220000.0",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "as_is_value": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "235000.0",
+        "source": "appraisal_sample.pdf (p.1)"
       },
       "arv": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "375000.0",
+        "source": "appraisal_sample.pdf (p.1)"
       },
       "rehab_budget": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "95000.0",
+        "source": "loan_application_sample.pdf (p.1)"
       },
       "property_address": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "1247 Oakwood Drive, Atlanta, GA 30308",
+        "source": "appraisal_sample.pdf (p.1)"
       },
       "interest_rate": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "11.5% per annum (Interest-Only, Monthly)",
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "loan_term_months": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "12",
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "origination_fee": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "2 points",
+        "source": "term_sheet_sample.pdf (p.1)"
       }
     },
     "supporting": {
@@ -155,44 +150,24 @@
         "source": "N/A"
       },
       "property_type": {
-        "value": "Not Found",
-        "source": "N/A"
+        "value": "Single-Family Detached",
+        "source": "appraisal_sample.pdf (p.1)"
       }
     }
   },
   "financial_metrics": {
-    "as_is_ltv": "N/A",
-    "arv_ltv": "N/A",
-    "ltc": "N/A",
-    "total_project_cost": "N/A",
-    "borrower_equity": "N/A",
-    "risk_flags": []
+    "as_is_ltv": "121.28%",
+    "arv_ltv": "76.00%",
+    "ltc": "90.48%",
+    "total_project_cost": "$315,000",
+    "borrower_equity": "$30,000",
+    "risk_flags": [
+      "\u26a0\ufe0f HIGH As-Is LTV: 121.3% (threshold: 80%)",
+      "\u26a0\ufe0f HIGH ARV LTV: 76.0% (threshold: 75%)",
+      "\u26a0\ufe0f HIGH LTC: 90.5% (threshold: 90%)"
+    ]
   },
   "validation_issues": [
-    {
-      "severity": "error",
-      "code": "MISSING_REQUIRED_DOC",
-      "description": "Required document missing: Term Sheet",
-      "action": "Obtain and upload a Term Sheet document"
-    },
-    {
-      "severity": "error",
-      "code": "MISSING_REQUIRED_DOC",
-      "description": "Required document missing: Loan Application",
-      "action": "Obtain and upload a Loan Application document"
-    },
-    {
-      "severity": "error",
-      "code": "MISSING_REQUIRED_DOC",
-      "description": "Required document missing: Purchase Contract",
-      "action": "Obtain and upload a Purchase Contract document"
-    },
-    {
-      "severity": "error",
-      "code": "MISSING_REQUIRED_DOC",
-      "description": "Required document missing: Appraisal",
-      "action": "Obtain and upload a Appraisal document"
-    },
     {
       "severity": "warning",
       "code": "MISSING_RECOMMENDED_DOC",
@@ -261,30 +236,6 @@
     },
     {
       "severity": "warning",
-      "code": "MISSING_LOAN_AMOUNT",
-      "description": "Could not extract: Loan Amount",
-      "action": "Verify Loan Amount is present in uploaded documents"
-    },
-    {
-      "severity": "warning",
-      "code": "MISSING_PURCHASE_PRICE",
-      "description": "Could not extract: Purchase Price",
-      "action": "Verify Purchase Price is present in uploaded documents"
-    },
-    {
-      "severity": "warning",
-      "code": "MISSING_AS_IS_VALUE",
-      "description": "Could not extract: As-Is Property Value",
-      "action": "Verify As-Is Property Value is present in uploaded documents"
-    },
-    {
-      "severity": "warning",
-      "code": "MISSING_ARV",
-      "description": "Could not extract: After Repair Value (ARV)",
-      "action": "Verify After Repair Value (ARV) is present in uploaded documents"
-    },
-    {
-      "severity": "warning",
       "code": "MISSING_CREDIT_SCORE",
       "description": "Could not extract: Credit Score",
       "action": "Verify Credit Score is present in uploaded documents"
@@ -294,15 +245,21 @@
       "code": "MISSING_BANK_BALANCE",
       "description": "Could not extract: Bank Balance / Liquidity",
       "action": "Verify Bank Balance / Liquidity is present in uploaded documents"
+    },
+    {
+      "severity": "error",
+      "code": "EXCESSIVE_AS_IS_LTV",
+      "description": "As-Is LTV of 121.3% exceeds maximum (85%)",
+      "action": "Reduce loan amount or obtain a higher appraisal"
     }
   ],
   "loan_recommendation": {
     "decision": "DECLINE",
-    "confidence": "56.0%",
+    "confidence": "80.0%",
     "probabilities": {
-      "APPROVE": 0.0,
-      "CONDITIONAL_APPROVAL": 0.44,
-      "DECLINE": 0.56
+      "APPROVE": 0.09,
+      "CONDITIONAL_APPROVAL": 0.11,
+      "DECLINE": 0.8
     },
     "top_factors": [
       {
@@ -326,14 +283,11 @@
         "importance": 0.104
       }
     ],
-    "explanation": "The loan decision for this request is a decline, with a decision confidence of 56.0%. The primary reason for this decision is the significant number of document issues, with a total of 21 issues found, including 4 missing required documents. This suggests that the borrower has not provided sufficient information for a thorough evaluation of the loan request.\n\nOne of the key concerns is the lack of credit score, which is a critical factor in determining the borrower's creditworthiness. Additionally, the loan-to-value (LTV) metrics, including As-Is LTV and ARV LTV, are not available, which makes it difficult to assess the risk of the loan. Furthermore, the borrower's experience and bank balance are also not provided, which are important factors in evaluating the borrower's ability to repay the loan.\n\nWhile there are some key financial metrics that are not available, it's worth noting that the top ML model factors, including doc_completeness_pct, bank_balance_ratio, and arv_ltv, all indicate potential issues with the loan request. Specifically, the doc_completeness_pct suggests that the borrower has not provided sufficient documentation, which is a major concern.\n\nGiven the significant number of document issues and the lack of critical financial metrics, it's not possible to approve this loan request. However, if the borrower is willing to provide the necessary documentation and complete the loan application, we may be able to reconsider the loan request in the future.",
+    "explanation": "The loan request we're reviewing has been declined with a decision confidence of 80.0%. The primary reason for this decision is the high As-Is Loan-to-Value (LTV) ratio of 121.3%. This means that the borrower is seeking a loan that is more than 21% higher than the value of the property, which is a significant risk for the lender. Our model has flagged this as a major concern, and it's the primary factor driving the decline decision.\n\nWhile the borrower has a good credit profile, with 5 years of experience, and has provided a significant amount of equity ($30,000), these strengths are not enough to overcome the high LTV ratio. The borrower's equity contribution is substantial, but it's not enough to mitigate the risk associated with the high LTV. Additionally, the borrower's bank balance is not available, which is another concern.\n\nThe loan analysis also highlights several document issues, with a total of 14 issues found. While none of the required documents are missing, the sheer number of issues suggests that the borrower may not have provided a complete or accurate application. Our model has also flagged the ARV LTV ratio as a concern, but it's not as significant as the high As-Is LTV ratio.\n\nGiven the high risk associated with this loan request, we cannot approve it in its current form. However, if the borrower is willing to address the high LTV ratio, we may consider revisiting the application. This could involve providing additional equity or reducing the loan amount to bring the LTV ratio down to a more manageable level. We would need to see a revised application with updated financial information and a more detailed explanation of how the borrower plans to address the high LTV ratio.",
     "model_disclosure": "Quantitative risk score derived from multi-variable Random Forest classifier."
   },
   "human_review_requirements": [
-    "Obtain missing required documents: Term Sheet, Loan Application, Purchase Contract, Appraisal",
-    "Resolve: Required document missing: Term Sheet",
-    "Resolve: Required document missing: Loan Application",
-    "Resolve: Required document missing: Purchase Contract",
+    "Resolve: As-Is LTV of 121.3% exceeds maximum (85%)",
     "Provide adverse action notice to borrower",
     "Document specific decline reasons per regulatory requirements"
   ]

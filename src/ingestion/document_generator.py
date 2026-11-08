@@ -175,6 +175,7 @@ def generate_loan_application(output_path: str):
     kv3 = [
         ("Years in Real Estate Investment:", f"{EXPERIENCE_YEARS} years"),
         ("Completed Projects (Past 36 Months):", f"{PROJECTS_COMPLETED} completed SFR flips"),
+        ("Principal Guarantor Middle FICO:", f"{CREDIT_SCORE} (Experian / Equifax / TransUnion)"),
         ("Reported Annual Entity Revenue:", "$340,000"),
         ("Current Liquid Operating Reserves:", f"${BANK_BALANCE:,}"),
     ]

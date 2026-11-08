@@ -266,19 +266,127 @@ def _find_page_for_value(pages, search_term: str) -> int:
     return 1  # Default to page 1 if not specifically found
 
 
+def _extract_via_patterns(text: str, doc_category: str) -> dict:
+    """
+    Fast regex & line-based extraction fallback for key underwriting figures.
+    Optimized for CPU performance and robust pattern matching without LLM latency.
+    """
+    data = {}
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+
+    def match_kv(keys: list[str]) -> Optional[str]:
+        for i, line in enumerate(lines):
+            l_lower = line.lower()
+            for k in keys:
+                if k.lower() in l_lower:
+                    if ":" in line:
+                        after = line.split(":", 1)[1].strip()
+                        if after:
+                            return after
+                    if i + 1 < len(lines):
+                        nxt = lines[i + 1].strip()
+                        if nxt and not any(c in nxt.lower() for c in [":", "section", "page", "table", "form"]):
+                            return nxt
+        return None
+
+    # Borrower Name / Entity
+    b_name = match_kv(["Borrower Name / Entity", "Borrower Entity", "Purchaser / Buyer", "Borrower Name"])
+    if b_name:
+        data["borrower_name"] = b_name
+
+    # Loan Amount
+    l_amt = match_kv(["Requested Loan Amount", "Facility Amount", "Loan Amount", "Principal Amount"])
+    if l_amt:
+        parsed = _parse_money(l_amt)
+        if parsed:
+            data["loan_amount"] = parsed
+
+    # Purchase Price
+    p_price = match_kv(["Contract Purchase Price", "Purchase Price"])
+    if p_price:
+        parsed = _parse_money(p_price)
+        if parsed:
+            data["purchase_price"] = parsed
+
+    # As-Is Value
+    as_is = match_kv(["As-Is Appraised Value", "As-Is Market Value", "As-Is Value", "Appraised Value"])
+    if as_is:
+        parsed = _parse_money(as_is)
+        if parsed:
+            data["as_is_value"] = parsed
+
+    # ARV
+    arv = match_kv(["After Repair Value (ARV)", "After-Repair Value (ARV)", "Prospective Value Upon Completion (ARV)", "ARV"])
+    if arv:
+        parsed = _parse_money(arv)
+        if parsed:
+            data["arv"] = parsed
+
+    # Rehab Budget
+    rehab = match_kv(["Planned Rehab Budget", "Rehabilitation Budget", "Rehab Budget", "Renovation Budget"])
+    if rehab:
+        parsed = _parse_money(rehab)
+        if parsed:
+            data["rehab_budget"] = parsed
+
+    # Credit Score
+    cs = match_kv(["Principal Guarantor Middle FICO", "Credit Score", "FICO Score", "Qualifying FICO", "Middle FICO", "FICO"])
+    if cs:
+        m = re.search(r'\b([3-8][0-9]{2})\b', cs)
+        if m:
+            data["credit_score"] = int(m.group(1))
+
+    # Bank Balance
+    bal = match_kv(["Current Liquid Operating Reserves", "Bank Balance", "Liquid Reserves", "Verified Checking", "Liquid Assets", "Total Liquidity"])
+    if bal:
+        parsed = _parse_money(bal)
+        if parsed:
+            data["bank_balance"] = parsed
+
+    # Experience / Completed Flips
+    exp = match_kv(["Completed Projects", "Completed Flips", "Years in Real Estate Investment", "Prior Investment Projects", "Experience Years", "Track Record"])
+    if exp:
+        m = re.search(r'\b([0-9]{1,2})\b', exp)
+        if m:
+            data["experience_years"] = int(m.group(1))
+            data["projects_completed"] = int(m.group(1))
+
+    # Property Address
+    addr = match_kv(["Collateral Address", "Property Address", "Subject Property", "Collateral Property"])
+    if addr:
+        data["property_address"] = addr
+
+    return data
+
+
 def extract_from_document(
     pdf_doc,
     category: str,
     ollama_client,
+    use_llm: bool = True,
 ) -> dict:
     """
     Extract information from a single classified PDF document.
-    Returns raw extraction dict.
+    Returns raw extraction dict. Supports fast CPU mode and LLM mode.
     """
     if not pdf_doc.full_text.strip():
         return {"_category": category, "_file": pdf_doc.file_name, "_empty": True}
 
-    extracted = _extract_via_llm(pdf_doc.full_text, category, ollama_client)
+    pattern_data = _extract_via_patterns(pdf_doc.full_text, category)
+
+    if use_llm and ollama_client is not None and getattr(ollama_client, 'model', None):
+        try:
+            llm_data = _extract_via_llm(pdf_doc.full_text, category, ollama_client)
+            # Combine: pattern data provides robust foundation, llm overlays nuances
+            for k, v in pattern_data.items():
+                if k not in llm_data or llm_data[k] is None:
+                    llm_data[k] = v
+            extracted = llm_data
+        except Exception:
+            extracted = pattern_data
+    else:
+        extracted = pattern_data
+
     extracted["_category"] = category
     extracted["_file"] = pdf_doc.file_name
     extracted["_pages"] = pdf_doc.total_pages

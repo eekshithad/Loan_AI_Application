@@ -106,4 +106,3 @@ In building this application, I utilized **Google Antigravity** as my primary ag
   11. `operating_agreement_sample.pdf` (Articles of Organization & LLC Operating Agreement)
   12. `borrower_track_record_sample.pdf` (Historical SFR Renovation Disposition Schedule)
 - **Evaluation Dataset:** 10 diverse, structured loan underwriting cases (`GT-001` to `GT-010`) covering prime approval, missing appraisal/title, severe credit impairment, insufficient liquidity, and high LTV/LTC. All ground-truth labels were established according to standard commercial credit committee criteria.
-

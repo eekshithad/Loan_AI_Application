@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-08 14:26:23",
+    "generated_at": "2026-11-08 15:42:40",
     "application_name": "AI-Driven Loan Underwriting System",
     "version": "1.0.0",
     "disclaimer": "Confidential Commercial Underwriting Report \u2014 FinacPlus Credit Division"
@@ -16,23 +16,23 @@
   },
   "document_classification": {
     "uploaded_files": [
-      "appraisal_sample.pdf",
+      "term_sheet_sample.pdf",
       "loan_application_sample.pdf",
       "purchase_contract_sample.pdf",
-      "term_sheet_sample.pdf"
+      "appraisal_sample.pdf"
     ],
     "classified": [
       {
-        "file": "appraisal_sample.pdf",
-        "category": "Appraisal",
+        "file": "term_sheet_sample.pdf",
+        "category": "Term Sheet",
         "confidence": "75%",
         "method": "keyword"
       },
       {
         "file": "loan_application_sample.pdf",
         "category": "Loan Application",
-        "confidence": "92%",
-        "method": "keyword+llm"
+        "confidence": "75%",
+        "method": "keyword"
       },
       {
         "file": "purchase_contract_sample.pdf",
@@ -41,8 +41,8 @@
         "method": "keyword"
       },
       {
-        "file": "term_sheet_sample.pdf",
-        "category": "Term Sheet",
+        "file": "appraisal_sample.pdf",
+        "category": "Appraisal",
         "confidence": "75%",
         "method": "keyword"
       }
@@ -67,26 +67,26 @@
     "borrower": {
       "name": {
         "value": "Meridian Capital Investments LLC",
-        "source": "loan_application_sample.pdf (p.1)"
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "entity_type": {
-        "value": "Domestic Limited Liability Company (LLC)",
-        "source": "loan_application_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       },
       "credit_score": {
         "value": "Not Found",
         "source": "N/A"
       },
       "employment": {
-        "value": "5 years",
-        "source": "loan_application_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       },
       "bank_balance": {
         "value": "Not Found",
         "source": "N/A"
       },
       "experience_years": {
-        "value": "5",
+        "value": "8",
         "source": "loan_application_sample.pdf (p.1)"
       },
       "projects_completed": {
@@ -97,7 +97,7 @@
     "loan": {
       "loan_amount": {
         "value": "285000.0",
-        "source": "loan_application_sample.pdf (p.1)"
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "purchase_price": {
         "value": "220000.0",
@@ -105,11 +105,11 @@
       },
       "as_is_value": {
         "value": "235000.0",
-        "source": "appraisal_sample.pdf (p.1)"
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "arv": {
         "value": "375000.0",
-        "source": "appraisal_sample.pdf (p.1)"
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "rehab_budget": {
         "value": "95000.0",
@@ -117,19 +117,19 @@
       },
       "property_address": {
         "value": "1247 Oakwood Drive, Atlanta, GA 30308",
-        "source": "appraisal_sample.pdf (p.1)"
+        "source": "term_sheet_sample.pdf (p.1)"
       },
       "interest_rate": {
-        "value": "11.5% per annum (Interest-Only, Monthly)",
-        "source": "term_sheet_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       },
       "loan_term_months": {
-        "value": "12",
-        "source": "term_sheet_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       },
       "origination_fee": {
-        "value": "2 points",
-        "source": "term_sheet_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       }
     },
     "supporting": {
@@ -150,8 +150,8 @@
         "source": "N/A"
       },
       "property_type": {
-        "value": "Single-Family Detached",
-        "source": "appraisal_sample.pdf (p.1)"
+        "value": "Not Found",
+        "source": "N/A"
       }
     }
   },
@@ -255,35 +255,35 @@
   ],
   "loan_recommendation": {
     "decision": "DECLINE",
-    "confidence": "80.0%",
+    "confidence": "95.0%",
     "probabilities": {
-      "APPROVE": 0.09,
-      "CONDITIONAL_APPROVAL": 0.11,
-      "DECLINE": 0.8
+      "APPROVE": 0.0,
+      "CONDITIONAL_APPROVAL": 0.05,
+      "DECLINE": 0.95
     },
     "top_factors": [
       {
-        "feature": "doc_completeness_pct",
-        "importance": 0.216
-      },
-      {
-        "feature": "bank_balance_ratio",
-        "importance": 0.205
-      },
-      {
-        "feature": "arv_ltv",
-        "importance": 0.13
-      },
-      {
         "feature": "credit_score",
-        "importance": 0.119
+        "importance": 0.239
+      },
+      {
+        "feature": "missing_required_docs",
+        "importance": 0.165
+      },
+      {
+        "feature": "ltc",
+        "importance": 0.154
+      },
+      {
+        "feature": "doc_completeness_pct",
+        "importance": 0.143
       },
       {
         "feature": "as_is_ltv",
-        "importance": 0.104
+        "importance": 0.113
       }
     ],
-    "explanation": "The loan request we're reviewing has been declined with a decision confidence of 80.0%. The primary reason for this decision is the high As-Is Loan-to-Value (LTV) ratio of 121.3%. This means that the borrower is seeking a loan that is significantly more than the value of the property, which increases the risk of default. In our industry, we typically aim for an LTV ratio of 80% or lower to ensure that the borrower has sufficient equity in the property.\n\nOne of the key strengths of this loan request is the borrower's experience, with 5 years of experience in the field. This suggests that the borrower has a good understanding of the market and is likely to make informed decisions about the property. Additionally, the borrower has a significant amount of equity in the property, with a contribution of $30,000. However, despite these strengths, the high LTV ratio and other issues with the loan request outweigh the positives.\n\nThe loan request also has several concerns and risks associated with it. The borrower's credit score is not found, which makes it difficult to assess their creditworthiness. Furthermore, the loan request has 14 issues, including missing required documents, which suggests that the borrower may not have provided all the necessary information. The top ML model factors also indicate that the completeness of the documents and the bank balance ratio are significant concerns. The ARV LTV ratio of 76.0% is relatively low, but it's not enough to offset the high As-Is LTV ratio.\n\nGiven the high risk associated with this loan request, we have declined it. However, if the borrower is willing to address the issues and provide additional information, we may consider revisiting the loan request. Specifically, we would need to see a revised loan package that includes a more detailed credit report, a revised loan amount that takes into account the As-Is LTV ratio, and a more comprehensive bank statement. If the borrower can provide this information, we may be willing to reconsider the loan request.",
+    "explanation": "Credit Recommendation: DECLINE (Model Confidence: 95.0%). Underwriting evaluation for borrower 'Meridian Capital Investments LLC' indicates qualifying bridge loan collateral metrics with As-Is LTV of 121.3%, ARV LTV of 76.0%, and LTC of 90.5%, backed by $30,000 in verified borrower equity. Key decision factors influencing this recommendation include: credit score, missing required docs, ltc. All core underwriting documentation verified.",
     "model_disclosure": "Quantitative risk score derived from multi-variable Random Forest classifier."
   },
   "human_review_requirements": [

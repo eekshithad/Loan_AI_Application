@@ -53,6 +53,7 @@ class UnderwritingPipeline:
         save_json: bool = True,
         save_pdf: bool = True,
         progress_callback=None,
+        fast_mode: bool = False,
     ) -> dict:
         """
         Main processing entry point.
@@ -99,12 +100,13 @@ class UnderwritingPipeline:
 
         # ── Step 2: Classify ──
         progress("Classifying documents…", 20)
+        use_llm_flag = ollama_ok and not fast_mode
         for doc in results["loaded_docs"]:
             classification = classify_document(
                 text=doc.full_text,
                 file_name=doc.file_name,
-                ollama_client=self.ollama if ollama_ok else None,
-                use_llm=ollama_ok,
+                ollama_client=self.ollama if use_llm_flag else None,
+                use_llm=use_llm_flag,
             )
             results["classified_docs"].append(classification)
 
@@ -112,7 +114,12 @@ class UnderwritingPipeline:
         progress("Extracting information…", 40)
         raw_extractions = []
         for doc, cls in zip(results["loaded_docs"], results["classified_docs"]):
-            extracted = extract_from_document(doc, cls.category, self.ollama if ollama_ok else _dummy_ollama())
+            extracted = extract_from_document(
+                doc,
+                cls.category,
+                self.ollama if use_llm_flag else None,
+                use_llm=use_llm_flag,
+            )
             raw_extractions.append((extracted, doc))
 
         extraction_result = merge_extractions(raw_extractions)
@@ -164,12 +171,27 @@ class UnderwritingPipeline:
         prediction = self.decision_model.predict(feature_vec)
         results["prediction"] = prediction
 
-        # ── Step 7: LLM Explanation ──
+        # ── Step 7: Underwriter Explanation ──
         progress("Generating underwriter explanation…", 88)
-        explanation = generate_decision_explanation(
-            prediction, extraction_result, fm, val_result,
-            self.ollama if ollama_ok else _DummyOllama()
-        )
+        if use_llm_flag:
+            explanation = generate_decision_explanation(
+                prediction, extraction_result, fm, val_result,
+                self.ollama
+            )
+        else:
+            eq_str = f"${fm.borrower_equity:,.0f}" if fm.borrower_equity is not None else "N/A"
+            as_is_str = f"{fm.as_is_ltv:.1f}%" if fm.as_is_ltv is not None else "N/A"
+            arv_str = f"{fm.arv_ltv:.1f}%" if fm.arv_ltv is not None else "N/A"
+            ltc_str = f"{fm.ltc:.1f}%" if fm.ltc is not None else "N/A"
+            top_drivers = ", ".join(f["feature"].replace("_", " ") for f in prediction.get("top_features", [])[:3])
+            b_name = extraction_result.borrower.name.value
+            explanation = (
+                f"Credit Recommendation: {prediction['decision']} (Model Confidence: {prediction['confidence']:.1%}). "
+                f"Underwriting evaluation for borrower '{b_name}' indicates qualifying bridge loan collateral metrics "
+                f"with As-Is LTV of {as_is_str}, ARV LTV of {arv_str}, and LTC of {ltc_str}, backed by {eq_str} in verified borrower equity. "
+                f"Key decision factors influencing this recommendation include: {top_drivers}. "
+                f"{'All core underwriting documentation verified.' if not val_result.missing_required else f'Note: Pending documents: {', '.join(val_result.missing_required)}.'}"
+            )
         results["explanation"] = explanation
 
         # ── Step 8: Build Report ──
