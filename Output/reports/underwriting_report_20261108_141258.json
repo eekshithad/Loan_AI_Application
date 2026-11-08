@@ -1,0 +1,340 @@
+{
+  "metadata": {
+    "generated_at": "2026-11-08 14:12:58",
+    "application_name": "AI-Driven Loan Underwriting System",
+    "version": "1.0.0",
+    "disclaimer": "Confidential Commercial Underwriting Report \u2014 FinacPlus Credit Division"
+  },
+  "loan_summary": {
+    "property_address": "Not Found",
+    "borrower_name": "Not Found",
+    "loan_amount": "Not Found",
+    "purchase_price": "Not Found",
+    "as_is_value": "Not Found",
+    "arv": "Not Found",
+    "rehab_budget": "Not Found"
+  },
+  "document_classification": {
+    "uploaded_files": [
+      "appraisal_sample.pdf",
+      "loan_application_sample.pdf",
+      "purchase_contract_sample.pdf",
+      "term_sheet_sample.pdf"
+    ],
+    "classified": [
+      {
+        "file": "appraisal_sample.pdf",
+        "category": "Other",
+        "confidence": "90%",
+        "method": "llm"
+      },
+      {
+        "file": "loan_application_sample.pdf",
+        "category": "Other",
+        "confidence": "90%",
+        "method": "llm"
+      },
+      {
+        "file": "purchase_contract_sample.pdf",
+        "category": "Other",
+        "confidence": "90%",
+        "method": "llm"
+      },
+      {
+        "file": "term_sheet_sample.pdf",
+        "category": "Other",
+        "confidence": "90%",
+        "method": "llm"
+      }
+    ],
+    "missing_required": [
+      "Term Sheet",
+      "Loan Application",
+      "Purchase Contract",
+      "Appraisal"
+    ],
+    "missing_recommended": [
+      "Scope of Work",
+      "Title Commitment",
+      "Insurance Binder",
+      "Credit Report",
+      "Bank Statement",
+      "Flood Certificate",
+      "Operating Agreement",
+      "Certificate of Good Standing",
+      "Government ID",
+      "Borrower Track Record",
+      "Background Check"
+    ],
+    "completeness_pct": 0.0
+  },
+  "extracted_information": {
+    "borrower": {
+      "name": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "entity_type": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "credit_score": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "employment": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "bank_balance": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "experience_years": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "projects_completed": {
+        "value": "Not Found",
+        "source": "N/A"
+      }
+    },
+    "loan": {
+      "loan_amount": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "purchase_price": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "as_is_value": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "arv": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "rehab_budget": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "property_address": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "interest_rate": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "loan_term_months": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "origination_fee": {
+        "value": "Not Found",
+        "source": "N/A"
+      }
+    },
+    "supporting": {
+      "insurance_carrier": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "insurance_amount": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "flood_zone": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "title_issues": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "property_type": {
+        "value": "Not Found",
+        "source": "N/A"
+      }
+    }
+  },
+  "financial_metrics": {
+    "as_is_ltv": "N/A",
+    "arv_ltv": "N/A",
+    "ltc": "N/A",
+    "total_project_cost": "N/A",
+    "borrower_equity": "N/A",
+    "risk_flags": []
+  },
+  "validation_issues": [
+    {
+      "severity": "error",
+      "code": "MISSING_REQUIRED_DOC",
+      "description": "Required document missing: Term Sheet",
+      "action": "Obtain and upload a Term Sheet document"
+    },
+    {
+      "severity": "error",
+      "code": "MISSING_REQUIRED_DOC",
+      "description": "Required document missing: Loan Application",
+      "action": "Obtain and upload a Loan Application document"
+    },
+    {
+      "severity": "error",
+      "code": "MISSING_REQUIRED_DOC",
+      "description": "Required document missing: Purchase Contract",
+      "action": "Obtain and upload a Purchase Contract document"
+    },
+    {
+      "severity": "error",
+      "code": "MISSING_REQUIRED_DOC",
+      "description": "Required document missing: Appraisal",
+      "action": "Obtain and upload a Appraisal document"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Scope of Work",
+      "action": "Consider obtaining Scope of Work for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Title Commitment",
+      "action": "Consider obtaining Title Commitment for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Insurance Binder",
+      "action": "Consider obtaining Insurance Binder for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Credit Report",
+      "action": "Consider obtaining Credit Report for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Bank Statement",
+      "action": "Consider obtaining Bank Statement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Flood Certificate",
+      "action": "Consider obtaining Flood Certificate for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Operating Agreement",
+      "action": "Consider obtaining Operating Agreement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Certificate of Good Standing",
+      "action": "Consider obtaining Certificate of Good Standing for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Government ID",
+      "action": "Consider obtaining Government ID for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Borrower Track Record",
+      "action": "Consider obtaining Borrower Track Record for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Background Check",
+      "action": "Consider obtaining Background Check for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_LOAN_AMOUNT",
+      "description": "Could not extract: Loan Amount",
+      "action": "Verify Loan Amount is present in uploaded documents"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_PURCHASE_PRICE",
+      "description": "Could not extract: Purchase Price",
+      "action": "Verify Purchase Price is present in uploaded documents"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_AS_IS_VALUE",
+      "description": "Could not extract: As-Is Property Value",
+      "action": "Verify As-Is Property Value is present in uploaded documents"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_ARV",
+      "description": "Could not extract: After Repair Value (ARV)",
+      "action": "Verify After Repair Value (ARV) is present in uploaded documents"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_CREDIT_SCORE",
+      "description": "Could not extract: Credit Score",
+      "action": "Verify Credit Score is present in uploaded documents"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_BANK_BALANCE",
+      "description": "Could not extract: Bank Balance / Liquidity",
+      "action": "Verify Bank Balance / Liquidity is present in uploaded documents"
+    }
+  ],
+  "loan_recommendation": {
+    "decision": "DECLINE",
+    "confidence": "56.0%",
+    "probabilities": {
+      "APPROVE": 0.0,
+      "CONDITIONAL_APPROVAL": 0.44,
+      "DECLINE": 0.56
+    },
+    "top_factors": [
+      {
+        "feature": "doc_completeness_pct",
+        "importance": 0.216
+      },
+      {
+        "feature": "bank_balance_ratio",
+        "importance": 0.205
+      },
+      {
+        "feature": "arv_ltv",
+        "importance": 0.13
+      },
+      {
+        "feature": "credit_score",
+        "importance": 0.119
+      },
+      {
+        "feature": "as_is_ltv",
+        "importance": 0.104
+      }
+    ],
+    "explanation": "The loan decision for this request is a decline, with a decision confidence of 56.0%. The primary reason for this decision is the significant number of document issues, with a total of 21 issues found, including 4 missing required documents. This suggests that the borrower has not provided sufficient information for a thorough evaluation of the loan request.\n\nOne of the key concerns is the lack of credit score, which is a critical factor in determining the borrower's creditworthiness. Additionally, the loan-to-value (LTV) metrics, including As-Is LTV and ARV LTV, are not available, which makes it difficult to assess the risk of the loan. Furthermore, the borrower's experience and bank balance are also not provided, which are important factors in evaluating the borrower's ability to repay the loan.\n\nWhile there are some key financial metrics that are not available, it's worth noting that the top ML model factors, including doc_completeness_pct, bank_balance_ratio, and arv_ltv, all indicate potential issues with the loan request. Specifically, the doc_completeness_pct suggests that the borrower has not provided sufficient documentation, which is a major concern.\n\nGiven the significant number of document issues and the lack of critical financial metrics, it's not possible to approve this loan request. However, if the borrower is willing to provide the necessary documentation and complete the loan application, we may be able to reconsider the loan request in the future.",
+    "model_disclosure": "Quantitative risk score derived from multi-variable Random Forest classifier."
+  },
+  "human_review_requirements": [
+    "Obtain missing required documents: Term Sheet, Loan Application, Purchase Contract, Appraisal",
+    "Resolve: Required document missing: Term Sheet",
+    "Resolve: Required document missing: Loan Application",
+    "Resolve: Required document missing: Purchase Contract",
+    "Provide adverse action notice to borrower",
+    "Document specific decline reasons per regulatory requirements"
+  ]
+}
