@@ -100,7 +100,12 @@ Return ONLY a JSON object with these keys:
   "loan_amount": <number or null>,
   "purchase_price": <number or null>,
   "property_address": <string or null>,
-  "employment": <string or null>
+  "employment": <string or null>,
+  "rehab_budget": <number or null>,
+  "arv": <number or null>,
+  "bank_balance": <number or null>,
+  "experience_years": <number or null>,
+  "projects_completed": <number or null>
 }
 If a value is not found, use null.
 Document text:

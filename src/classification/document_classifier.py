@@ -204,19 +204,26 @@ REASON: <one sentence explaining why>
         reason = ""
 
         for line in lines:
-            if line.startswith("CATEGORY:"):
-                raw_cat = line.replace("CATEGORY:", "").strip()
-                # Match to known category (case-insensitive)
+            clean_line = line.strip().lstrip("*# ")
+            if clean_line.upper().startswith("CATEGORY:"):
+                raw_cat = clean_line[len("CATEGORY:"):].strip().strip("*\"' ")
+                # Try exact match first
                 for known in DOCUMENT_CATEGORIES:
                     if known.lower() == raw_cat.lower():
                         category = known
                         break
                 else:
-                    category = "Other"
-            elif line.startswith("CONFIDENCE:"):
-                confidence_str = line.replace("CONFIDENCE:", "").strip().lower()
-            elif line.startswith("REASON:"):
-                reason = line.replace("REASON:", "").strip()
+                    # Try flexible substring match (e.g. "Appraisal Report" -> "Appraisal")
+                    for known in DOCUMENT_CATEGORIES:
+                        if known.lower() in raw_cat.lower() or raw_cat.lower() in known.lower():
+                            category = known
+                            break
+                    else:
+                        category = "Other"
+            elif clean_line.upper().startswith("CONFIDENCE:"):
+                confidence_str = clean_line[len("CONFIDENCE:"):].strip().lower().strip("*\"' ")
+            elif clean_line.upper().startswith("REASON:"):
+                reason = clean_line[len("REASON:"):].strip().strip("*\"' ")
 
         conf_map = {"high": 0.90, "medium": 0.70, "low": 0.50}
         confidence = conf_map.get(confidence_str, 0.50)
@@ -252,12 +259,18 @@ def classify_document(
     if use_llm and ollama_client is not None:
         try:
             llm_result = classify_document_llm(text, file_name, ollama_client)
-            # Combine: if both agree, boost confidence; otherwise prefer LLM
-            if llm_result.category == keyword_result.category:
-                combined_conf = min((llm_result.confidence + keyword_result.confidence) / 2 + 0.1, 1.0)
-                llm_result.confidence = round(combined_conf, 2)
-                llm_result.method = "keyword+llm"
-                llm_result.keyword_matches = keyword_result.keyword_matches
+            # If LLM classified successfully, use it
+            if llm_result.category != "Other":
+                if llm_result.category == keyword_result.category:
+                    combined_conf = min((llm_result.confidence + keyword_result.confidence) / 2 + 0.1, 1.0)
+                    llm_result.confidence = round(combined_conf, 2)
+                    llm_result.method = "keyword+llm"
+                    llm_result.keyword_matches = keyword_result.keyword_matches
+                return llm_result
+            elif keyword_result.category != "Other":
+                # Fall back to keyword if LLM returned Other
+                keyword_result.llm_reasoning = "Keyword matched category"
+                return keyword_result
             return llm_result
         except Exception as exc:
             logger.warning(f"LLM classification error: {exc}")
