@@ -631,7 +631,6 @@ DOCUMENT_SOURCES = [
         "limitations": "Uses 3 direct neighborhood comps; full market trend addendum condensed.",
     },
 ]
-]
 
 
 def generate_all_documents(output_dir: str = "Input/downloaded_documents") -> list[str]:
