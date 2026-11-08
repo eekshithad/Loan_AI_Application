@@ -69,7 +69,8 @@ Application/
 │   └── loan_decision_rf.pkl        # Serialized Random Forest classifier
 ├── app.py                          # Streamlit web user interface
 ├── run.py                          # Single-command CLI runner
-├── WRITEUP.md                      # Comprehensive 3-page project write-up
+├── WRITEUP.pdf                      # Formatted 3-page project write-up (PDF)
+├── WRITEUP.md                      # Comprehensive project write-up (Markdown)
 ├── requirements.txt                # Full Python dependencies
 └── .env.example                    # Environment variable configuration
 ```
