@@ -1,0 +1,282 @@
+{
+  "metadata": {
+    "generated_at": "2026-11-08 16:08:20",
+    "application_name": "AI-Driven Loan Underwriting System",
+    "version": "1.0.0",
+    "disclaimer": "Confidential Commercial Underwriting Report \u2014 FinacPlus Credit Division"
+  },
+  "loan_summary": {
+    "property_address": "1247 Oakwood Drive, Atlanta, GA 30308",
+    "borrower_name": "Meridian Capital Investments LLC",
+    "loan_amount": "285000.0",
+    "purchase_price": "220000.0",
+    "as_is_value": "235000.0",
+    "arv": "375000.0",
+    "rehab_budget": "95000.0"
+  },
+  "document_classification": {
+    "uploaded_files": [
+      "appraisal_sample.pdf",
+      "loan_application_sample.pdf",
+      "purchase_contract_sample.pdf",
+      "term_sheet_sample.pdf"
+    ],
+    "classified": [
+      {
+        "file": "appraisal_sample.pdf",
+        "category": "Appraisal",
+        "confidence": "75%",
+        "method": "keyword"
+      },
+      {
+        "file": "loan_application_sample.pdf",
+        "category": "Loan Application",
+        "confidence": "92%",
+        "method": "keyword+llm"
+      },
+      {
+        "file": "purchase_contract_sample.pdf",
+        "category": "Purchase Contract",
+        "confidence": "75%",
+        "method": "keyword"
+      },
+      {
+        "file": "term_sheet_sample.pdf",
+        "category": "Term Sheet",
+        "confidence": "75%",
+        "method": "keyword"
+      }
+    ],
+    "missing_required": [],
+    "missing_recommended": [
+      "Scope of Work",
+      "Title Commitment",
+      "Insurance Binder",
+      "Credit Report",
+      "Bank Statement",
+      "Flood Certificate",
+      "Operating Agreement",
+      "Certificate of Good Standing",
+      "Government ID",
+      "Borrower Track Record",
+      "Background Check"
+    ],
+    "completeness_pct": 26.7
+  },
+  "extracted_information": {
+    "borrower": {
+      "name": {
+        "value": "Meridian Capital Investments LLC",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "entity_type": {
+        "value": "Domestic Limited Liability Company (LLC)",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "credit_score": {
+        "value": "718",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "employment": {
+        "value": "5 years",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "bank_balance": {
+        "value": "72500.0",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "experience_years": {
+        "value": "5",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "projects_completed": {
+        "value": "8",
+        "source": "loan_application_sample.pdf (p.1)"
+      }
+    },
+    "loan": {
+      "loan_amount": {
+        "value": "285000.0",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "purchase_price": {
+        "value": "220000.0",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "as_is_value": {
+        "value": "235000.0",
+        "source": "appraisal_sample.pdf (p.1)"
+      },
+      "arv": {
+        "value": "375000.0",
+        "source": "appraisal_sample.pdf (p.1)"
+      },
+      "rehab_budget": {
+        "value": "95000.0",
+        "source": "loan_application_sample.pdf (p.1)"
+      },
+      "property_address": {
+        "value": "1247 Oakwood Drive, Atlanta, GA 30308",
+        "source": "appraisal_sample.pdf (p.1)"
+      },
+      "interest_rate": {
+        "value": "11.5% per annum (Interest-Only, Monthly)",
+        "source": "term_sheet_sample.pdf (p.1)"
+      },
+      "loan_term_months": {
+        "value": "12",
+        "source": "term_sheet_sample.pdf (p.1)"
+      },
+      "origination_fee": {
+        "value": "2 points",
+        "source": "term_sheet_sample.pdf (p.1)"
+      }
+    },
+    "supporting": {
+      "insurance_carrier": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "insurance_amount": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "flood_zone": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "title_issues": {
+        "value": "Not Found",
+        "source": "N/A"
+      },
+      "property_type": {
+        "value": "Single-Family Detached",
+        "source": "appraisal_sample.pdf (p.1)"
+      }
+    }
+  },
+  "financial_metrics": {
+    "as_is_ltv": "121.28%",
+    "arv_ltv": "76.00%",
+    "ltc": "90.48%",
+    "total_project_cost": "$315,000",
+    "borrower_equity": "$30,000",
+    "risk_flags": [
+      "\u26a0\ufe0f HIGH As-Is LTV: 121.3% (threshold: 80%)",
+      "\u26a0\ufe0f HIGH ARV LTV: 76.0% (threshold: 75%)",
+      "\u26a0\ufe0f HIGH LTC: 90.5% (threshold: 90%)"
+    ]
+  },
+  "validation_issues": [
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Scope of Work",
+      "action": "Consider obtaining Scope of Work for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Title Commitment",
+      "action": "Consider obtaining Title Commitment for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Insurance Binder",
+      "action": "Consider obtaining Insurance Binder for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Credit Report",
+      "action": "Consider obtaining Credit Report for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Bank Statement",
+      "action": "Consider obtaining Bank Statement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Flood Certificate",
+      "action": "Consider obtaining Flood Certificate for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Operating Agreement",
+      "action": "Consider obtaining Operating Agreement for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Certificate of Good Standing",
+      "action": "Consider obtaining Certificate of Good Standing for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Government ID",
+      "action": "Consider obtaining Government ID for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Borrower Track Record",
+      "action": "Consider obtaining Borrower Track Record for a more complete underwriting"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_RECOMMENDED_DOC",
+      "description": "Recommended document not found: Background Check",
+      "action": "Consider obtaining Background Check for a more complete underwriting"
+    },
+    {
+      "severity": "error",
+      "code": "EXCESSIVE_AS_IS_LTV",
+      "description": "As-Is LTV of 121.3% exceeds maximum (85%)",
+      "action": "Reduce loan amount or obtain a higher appraisal"
+    }
+  ],
+  "loan_recommendation": {
+    "decision": "CONDITIONAL_APPROVAL",
+    "confidence": "73.9%",
+    "probabilities": {
+      "APPROVE": 0.01,
+      "CONDITIONAL_APPROVAL": 0.739,
+      "DECLINE": 0.251
+    },
+    "top_factors": [
+      {
+        "feature": "credit_score",
+        "importance": 0.273
+      },
+      {
+        "feature": "missing_required_docs",
+        "importance": 0.167
+      },
+      {
+        "feature": "doc_completeness_pct",
+        "importance": 0.146
+      },
+      {
+        "feature": "arv_ltv",
+        "importance": 0.13
+      },
+      {
+        "feature": "ltc",
+        "importance": 0.124
+      }
+    ],
+    "explanation": "The loan request we're reviewing has been given a CONDITIONAL_APPROVAL decision with a decision confidence of 73.9%. The primary reason for this decision is the borrower's strong credit profile, with a credit score of 718. This is a significant strength, as it indicates the borrower has a good history of managing debt and making timely payments.\n\nHowever, there are some concerns that need to be addressed before we can finalize the loan. The loan-to-value (LTV) ratio is quite high, both on an as-is basis (121.3%) and after repairs (76.0%). This means the borrower is taking on a significant amount of risk, and we need to ensure that the property's value will appreciate enough to cover the loan amount. Additionally, the loan-to-cost (LTC) ratio is 90.5%, which is above our typical threshold. This suggests that the borrower may be over-leveraging themselves, which could lead to financial difficulties if the property's value doesn't increase as expected.\n\nWe also have some concerns about the completeness of the documentation. While there are no missing required documents, there are 12 issues that need to be addressed. These issues are primarily related to the quality and completeness of the documentation, rather than any major red flags. However, we need to ensure that all necessary documentation is in order before we can finalize the loan.\n\nTo move forward, we need the borrower to address the documentation issues and provide additional information to support the loan request. We also need to review the property's value and ensure that it's sufficient to cover the loan amount. Once these conditions are met, we can finalize the loan and move forward with the underwriting process.",
+    "model_disclosure": "Quantitative risk score derived from multi-variable Random Forest classifier."
+  },
+  "human_review_requirements": [
+    "Resolve: As-Is LTV of 121.3% exceeds maximum (85%)",
+    "Review and document all conditions before funding",
+    "Obtain borrower acknowledgment of conditions"
+  ]
+}

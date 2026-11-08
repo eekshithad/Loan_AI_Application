@@ -87,16 +87,15 @@ SYNTHETIC_TRAINING_CASES = [
 def _cases_to_arrays():
     """
     Generate balanced institutional underwriting synthetic dataset.
-    Reflects standard commercial bridge loan credit criteria.
+    Reflects standard commercial bridge loan credit criteria without test-set leakage.
     """
     def get_policy_label(cs, as_is, arv, ltc, bal, comp, exp, missing):
-        # Hard decline: subprime credit, negligible reserves, or post-repair leverage violation
-        if cs < 600 or bal < 0.05 or arv > 82.0 or ltc > 94.0 or missing >= 4:
+        if cs < 600 or bal < 0.05 or arv > 82.0 or ltc > 92.0 or missing >= 3:
             return "DECLINE"
-        # Conditional approval: missing documents, moderate leverage, elevated rehab scope
-        if missing > 0 or comp < 75.0 or ltc > 88.0 or arv > 75.0 or cs < 690 or bal < 0.10:
+        if cs < 660 and ltc > 84.0 and missing >= 2:
+            return "DECLINE"
+        if missing > 0 or comp < 75.0 or ltc > 82.0 or arv > 72.0 or cs < 685 or bal < 0.10:
             return "CONDITIONAL_APPROVAL"
-        # Clean approval
         return "APPROVE"
 
     rng = np.random.RandomState(42)
@@ -108,7 +107,7 @@ def _cases_to_arrays():
         y.append(case[8])
 
     # 2. Institutional policy scenarios across spectrum
-    for _ in range(1200):
+    for _ in range(3000):
         cs = float(rng.randint(520, 810))
         as_is = float(rng.uniform(50, 125))
         arv = float(rng.uniform(45, 88))
@@ -119,24 +118,6 @@ def _cases_to_arrays():
         missing = float(rng.randint(0, 4))
         X.append([cs, as_is, arv, ltc, bal, comp, exp, missing])
         y.append(get_policy_label(cs, as_is, arv, ltc, bal, comp, exp, missing))
-
-    # 3. Canonical benchmark exemplars
-    exemplars = [
-        ([745, 65.0, 60.0, 72.0, 0.22, 95.0, 7, 0], "APPROVE"),
-        ([710, 70.0, 64.0, 78.0, 0.15, 55.0, 3, 2], "CONDITIONAL_APPROVAL"),
-        ([560, 72.0, 66.0, 80.0, 0.10, 80.0, 2, 1], "DECLINE"),
-        ([680, 73.0, 67.0, 82.0, 0.02, 70.0, 4, 1], "DECLINE"),
-        ([700, 88.0, 80.0, 95.0, 0.08, 75.0, 2, 2], "DECLINE"),
-        ([720, 69.0, 63.0, 85.0, 0.12, 78.0, 5, 1], "CONDITIONAL_APPROVAL"),
-        ([695, 71.0, 65.0, 79.0, 0.13, 72.0, 3, 1], "CONDITIONAL_APPROVAL"),
-        ([660, 76.0, 70.0, 84.0, 0.09, 50.0, 1, 3], "CONDITIONAL_APPROVAL"),
-        ([760, 58.0, 52.0, 67.0, 0.35, 88.0, 12, 0], "APPROVE"),
-        ([650, 77.0, 71.0, 86.0, 0.08, 65.0, 2, 2], "CONDITIONAL_APPROVAL"),
-    ]
-    for feat, label in exemplars:
-        for _ in range(12):
-            X.append(feat)
-            y.append(label)
 
     return np.array(X, dtype=float), np.array(y)
 
